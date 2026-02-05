@@ -4,7 +4,7 @@
 
 **Document Type:** Supporting Material for MyTerms Alliance Application  
 **Author:** privacymage / agentprivacy  
-**Date:** January 28, 2026  
+**Date:** February 1, 2026  
 **Standard Reference:** IEEE Std 7012™-2025
 
 ---
@@ -12,6 +12,8 @@
 ## Overview
 
 This document specifies how agentprivacy's Swordsman browser agent implements IEEE 7012-2025, the Standard for Machine Readable Personal Privacy Terms. The implementation treats MyTerms as foundational infrastructure—not a feature, but the agreement layer upon which all other privacy functions depend.
+
+The Swordsman sits within a tetrahedral architecture (Swordsman, Mage, Reflect, Connect) where the protocol layer between agents becomes a communication substrate. This substrate enables guild-based secret languages — communities developing their own vocabulary on top of shared protocol — while IEEE 7012 provides the agreement layer that gives the Swordsman's blade meaning beyond single sessions.
 
 ---
 

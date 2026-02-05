@@ -4,13 +4,15 @@
 
 **Document Type:** Supporting Material for MyTerms Alliance Application  
 **Author:** privacymage / agentprivacy  
-**Date:** January 28, 2026
+**Date:** February 1, 2026
 
 ---
 
 ## Overview
 
 This document explains how agentprivacy sustains long-term contribution to the MyTerms ecosystem through a model that generates commercial value while keeping core infrastructure open. The architecture creates aligned incentives: commercial success requires standard adoption; standard adoption requires implementation quality; implementation quality requires sustained investment.
+
+Privacy is value — behavioral capital, the 7th capital, being systematically extracted by surveillance systems. The Privacy Value Model demonstrates value gaps from 678× to 31,000× between sovereign and surveillance architectures. This model ensures the infrastructure to capture that value is sustainably maintained.
 
 ---
 
@@ -202,6 +204,8 @@ Separate but related collaboration:
 | IIW Community | Community participation, pattern sharing |
 | First Person Network | Identity layer integration |
 | W3C (DPV) | Semantic vocabulary alignment |
+| Ethereum / Privacy Pools | Presented and actively working on compliant anonymity |
+| Kwaai AI | Agent architecture collaboration |
 
 ---
 

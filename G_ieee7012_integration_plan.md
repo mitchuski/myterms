@@ -1,7 +1,7 @@
 # IEEE 7012-2025 Integration Plan
 ## Digesting the Standard & Updating 0xagentprivacy Documentation
 
-**Date:** January 28, 2026  
+**Date:** February 1, 2026  
 **Document Status:** IEEE Std 7012™-2025 Published January 20, 2026  
 **Prepared for:** privacymage / 0xagentprivacy
 
@@ -10,6 +10,8 @@
 ## Executive Summary
 
 IEEE 7012-2025 has been officially published. This is the foundational standard for MyTerms that the Swordsman browser agent implements. The standard includes explicit provisions for AI agents, machine-readable formats, HTTP header protocols, and a bilateral agreement architecture that aligns directly with the dual-agent thesis.
+
+The standard implements the invitation pattern — acceptance before proposal — rather than surveillance's attack pattern of extraction without consent. This maps to the core agentprivacy insight: privacy is value, behavioral capital is the 7th capital, and the protocol layer between Swordsman and Mage becomes the substrate for guild-based secret languages that are locally rich and globally interoperable.
 
 This document provides:
 1. A structured plan for updating the formal agentprivacy documentation
@@ -395,6 +397,6 @@ The new Act (4.5 or XIII) should convey that:
 
 ---
 
-*Document prepared January 28, 2026*
+*Document prepared February 1, 2026*
 *IEEE 7012-2025 publication date: January 20, 2026*
 

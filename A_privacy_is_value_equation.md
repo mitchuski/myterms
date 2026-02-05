@@ -81,7 +81,11 @@ You can allocate resources perfectly between privacy and utility. But if your ar
 
 **V3.1 makes the prerequisite explicit: separation is architectural, not allocational.**
 
-The gap is now modeled at **31,000×** between sovereign and surveillance architectures. Whether that number is precisely right matters less than the direction.
+The equation models behavioral capital — the 7th capital. The patterns of how you think, decide, act, relate. This is being systematically extracted by surveillance systems and converted into financial capital for platforms. Privacy-preserving architectures don't just protect data. They protect wealth that belongs to you.
+
+The gap is now modeled at **678× to 31,000×** between sovereign and surveillance architectures, depending on network maturity and separation quality. Whether those numbers are precisely right matters less than the direction.
+
+Mass is earned through retrieval, not declaration. Every time someone retrieves your work and finds it valuable, mass accumulates. Every time your compression decompresses accurately in someone else's context, mass accumulates. Progressive trust systems measure what others find when they look you up.
 
 ---
 

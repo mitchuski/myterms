@@ -4,13 +4,15 @@
 
 **Document Type:** Supporting Material for MyTerms Alliance Application  
 **Author:** privacymage / agentprivacy  
-**Date:** January 28, 2026
+**Date:** February 1, 2026
 
 ---
 
 ## Overview
 
 Standards don't spread through specifications alone. They spread through demonstration, community, and momentum. This document outlines agentprivacy's strategy for diffusing IEEE 7012 / MyTerms into practical adoption through live development streams, guest collaborations, and sustained community energy.
+
+The methodology proves itself through multiplication — same principles across written documentation, narrative spellbooks, audio narration, podcast, visual architecture guides, and interactive AI agents. Compression ratios of 70:1 to 125:1 make complex concepts memorable. If it only worked one way, it would be fragile. It works every way we've tried.
 
 ---
 
@@ -67,6 +69,8 @@ Live development streams where AI agents create and integrate MyTerms as a prior
 - BGIN working group participants (governance + privacy)
 - IIW/Trust Over IP community (identity + credentials)
 - First Person Network (proof of humanity integration)
+- Ethereum / Privacy Pools community (compliant anonymity)
+- Kwaai AI (agent architecture)
 - Wallet builders (layering on agreement infrastructure)
 - Browser extension developers (technical patterns)
 
