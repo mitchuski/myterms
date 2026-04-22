@@ -18,7 +18,7 @@ Our work is grounded in the Privacy Value Model (PVM) V5.4, which moved beyond t
 
 ## 2. What We Bring
 
-**Implementation.** A production-quality Swordsman browser agent implementing the full P7012 protocol — SD-BASE through PDC-INTENT agreements, MRPAZ HTTP headers, bilateral chronicle records, and visual cursor feedback. Open source, designed for others to learn from and build on.
+**Implementation.** A production-quality Swordsman browser agent implementing the full P7012 protocol — SD-BASE through PDC-INTENT agreements, MRPAZ HTTP headers, bilateral chronicle records, and visual cursor feedback. Sitting above the wire protocol is a **MyTerms sticker hex** — an 8-sticker action set (6 active, 2 benched; yang/yin-balanced) that gives the First Person a cast-able UX for expressing preferences *within* signed agreements without minting new agreement IDs. Open source, designed for others to learn from and build on.
 
 **Diffusion.** Weekly live development streams where AI agents integrate MyTerms into real sites with real guests. Each stream produces reusable code, documentation, and implementation patterns. Recordings become the Alliance's living tutorial library. The same content exists across multiple media: written documentation, narrative spellbooks, audio narration, podcast, visual architecture guides, and interactive AI agents.
 

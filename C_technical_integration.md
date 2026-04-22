@@ -189,6 +189,120 @@ const PDC_GOOD = {
 
 ---
 
+## Sticker System — MyTerms Action Tokens
+
+The **Sticker System** is the First-Person-side UX layer that sits *above* the signed IEEE 7012 agreement and *below* the enforcement layer. Stickers are cast-able content items (emoji, proverb, or keyword) that express which subset of the signed agreement's permissions the First Person wants the Swordsman and Mage to express on a given site.
+
+They do **not** replace Customer Commons agreement IDs and they do **not** mint new `SD-BASE-*` variants. They are agentprivacy-local UX primitives that compose *with* signed agreements.
+
+### Schema
+
+```typescript
+type MyTermsSticker = {
+  id: string;                            // stable identifier, e.g. 'emoji_shield'
+  type: 'emoji' | 'proverb' | 'keyword';
+  content: string;                       // '🛡️', 'The gap is where you live', 'DO_NOT_TRACK'
+  emoji: string;                         // visual representation
+  myTermsMapping: MyTermsAction;         // enforcement verb emitted when cast
+  weight: 2 | 3;                         // contributes to hex convergence scoring
+  yangYin: 'yang' | 'yin';               // outward assertion vs inward concealment
+  source: 'story' | 'canon' | 'zk';      // narrative provenance
+};
+
+type MyTermsAction =
+  | 'DO_NOT_TRACK'
+  | 'TRUST_EXTENSION'
+  | 'DATA_MINIMISATION'
+  | 'SELECTIVE_DISCLOSURE'
+  | 'EPHEMERAL_SESSION'
+  | 'DO_NOT_SELL'
+  | 'ANONYMIZE';
+```
+
+### The Canonical Eight
+
+| ID | Type | Content | MyTerms mapping | Weight | Axis | Source |
+|---|---|---|---|---|---|---|
+| `emoji_shield` | emoji | 🛡️ | `DO_NOT_TRACK` | 2 | yang | story |
+| `emoji_dragon` | emoji | 🐉 | `TRUST_EXTENSION` | 3 | yang | story |
+| `proverb_gap` | proverb | "The gap is where you live" | `DATA_MINIMISATION` | 3 | yang | story |
+| `keyword_dnt` | keyword | `DO_NOT_TRACK` | `DO_NOT_TRACK` | 2 | yang | canon |
+| `emoji_crystal` | emoji | 🔮 | `SELECTIVE_DISCLOSURE` | 2 | yang | zk |
+| `proverb_weather` | proverb | "Build weather, not monuments" | `EPHEMERAL_SESSION` | 2 | yin | story |
+| `keyword_dns` | keyword | `DO_NOT_SELL` | `DO_NOT_SELL` | 2 | yin | canon |
+| `emoji_cloak` | emoji | 👻 | `ANONYMIZE` | 2 | yin | zk |
+
+Five yang stickers (outward assertion — Swordsman energy, boundary-making), three yin stickers (inward concealment — Mage energy, Γ-aware posture).
+
+### Hex Loadout Mechanic
+
+Six stickers are active in the hex at any time; two are benched. Default active set is three-yang + three-yin:
+
+```javascript
+const DEFAULT_ACTIVE_HEX_IDS = [
+  'emoji_shield', 'emoji_dragon', 'proverb_gap',    // yang
+  'emoji_crystal', 'proverb_weather', 'keyword_dns' // yin
+];
+```
+
+The First Person swaps stickers via right-click on the Sword Orb. State is persisted per-browser under the `localStorage` key `agentprivacy:active-hex-spells` and broadcast to extensions via a `agentprivacy:hex-spells-changed` `CustomEvent`.
+
+```javascript
+// Swap a benched sticker into the active hex
+function swapHexSpell(activeId, benchedId) {
+  const current = getActiveHexSpellIds();
+  const idx = current.indexOf(activeId);
+  if (idx === -1) return;
+  const next = [...current];
+  next[idx] = benchedId;
+  localStorage.setItem(
+    'agentprivacy:active-hex-spells',
+    JSON.stringify(next)
+  );
+  window.dispatchEvent(
+    new CustomEvent('agentprivacy:hex-spells-changed')
+  );
+}
+```
+
+### Composition with IEEE 7012 Agreements
+
+The signed agreement is the ceiling of what is permitted (Δ axis); active stickers are which subset of that ceiling the First Person chooses to express in a given session.
+
+```javascript
+// Composing a signed SD-BASE with an active sticker loadout
+const session = {
+  agreement: SD_BASE,                     // signed per §5.2.4
+  activeStickers: [
+    'emoji_shield',                       // → DO_NOT_TRACK enforcement
+    'emoji_cloak',                        // → ANONYMIZE (Γ-aware Mage posture)
+    'proverb_gap'                         // → DATA_MINIMISATION
+  ],
+  resolvedPolicy: resolveStickerPolicy(
+    SD_BASE,
+    ['emoji_shield', 'emoji_cloak', 'proverb_gap']
+  )
+};
+```
+
+A signed `SD-BASE` with `emoji_cloak` active means: *"service delivery only, and my Mage should operate in anonymising mode on this site."* The agreement is the contract with the Entity; the stickers configure how agentprivacy expresses itself within that contract.
+
+### What the Sticker System is NOT
+
+- **Not a replacement for the Customer Commons agreement registry.** `myTermsMapping` values are agentprivacy-local action verbs, not IEEE 7012 agreement IDs. Agreement IDs come from Customer Commons; stickers come from the sovereignty training journey.
+- **Not visible to the Entity.** Per §5.2.4, the bilateral record contains the signed agreement. Sticker state is First-Person-side UX and does not leak cross-party.
+- **Not a negotiation input.** §A.1 caps negotiation at one round. Stickers do not reopen negotiation — they configure expression *within* an already-signed agreement.
+- **Not minting new agreement IDs.** A site that wants stricter-than-`SD-BASE` behaviour still uses the existing `SD-BASE-*` or `PDC-*` lattice. Stickers never appear as wire-level agreement identifiers.
+
+### Extension Integration
+
+`syncRepertoireToExtensions()` broadcasts active sticker state to both the Swordsman and Mage extensions:
+
+- **Swordsman** (agreement-layer agent) reads active stickers to refine resource classification inside the envelope set by the signed agreement. `emoji_shield` active on a site with `SD-BASE-A` signed will tighten third-party-analytics blocking without changing the signed agreement.
+- **Mage** (delegation inside Σ scope) reads active stickers to inform operational posture — `emoji_cloak` active triggers Γ-aware output rewriting before the Mage takes actions on the First Person's behalf. The Mage never signs; the stickers shape *how* the Mage acts inside the Swordsman-signed agreement.
+
+---
+
 ## HTTP Protocol Implementation (MRPAZ)
 
 ### Request Headers
