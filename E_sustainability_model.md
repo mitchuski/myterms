@@ -2,9 +2,9 @@
 
 ## Foundation ↔ Labs ↔ Community Architecture
 
-**Document Type:** Supporting Material for MyTerms Alliance Application  
-**Author:** privacymage / agentprivacy  
-**Date:** February 1, 2026
+**Document Type:** Supporting Material for MyTerms Alliance Application
+**Author:** privacymage / agentprivacy
+**Date:** February 1, 2026 (refreshed April 22, 2026 against IEEE 7012 Integration Plan V2)
 
 ---
 
@@ -12,7 +12,7 @@
 
 This document explains how agentprivacy sustains long-term contribution to the MyTerms ecosystem through a model that generates commercial value while keeping core infrastructure open. The architecture creates aligned incentives: commercial success requires standard adoption; standard adoption requires implementation quality; implementation quality requires sustained investment.
 
-Privacy is value — behavioral capital, the 7th capital, being systematically extracted by surveillance systems. The Privacy Value Model demonstrates value gaps from 678× to 31,000× between sovereign and surveillance architectures. This model ensures the infrastructure to capture that value is sustainably maintained.
+Privacy is value — behavioral capital, the 7th capital, being systematically extracted by surveillance systems. The Privacy Value Model V5.4 (three-axis multiplicative gating across Σ, Δ, Γ) demonstrates modelled value gaps from 678× to 31,000× between sovereign and surveillance architectures, depending on the weakest axis. This sustainability model ensures the infrastructure to capture that value is sustainably maintained.
 
 ---
 
@@ -191,9 +191,10 @@ Labs Revenue
 ### BGIN (Blockchain Governance Initiative Network)
 
 Separate but related collaboration:
-- agentprivacy contributes to BGIN working groups
-- Governance research informs implementation
-- IEEE 7012 integration with BGIN incident response project
+- agentprivacy co-chairs the BGIN Identity Key Management & Privacy Working Group
+- Governance research informs implementation — IEEE 7012 agreements interact with GDPR, CCPA, MiCA, DMA; the standard explicitly leaves this to implementers (§1.3)
+- BGIN's Three Graphs architecture (knowledge × promise × trust) has a natural home for signed IEEE 7012 agreements as edges in the promise graph
+- BGIN incident response work can reference §5.2.4 (bilateral recorder) as the evidentiary base for privacy incident disputes
 - Non-profit governance body, similar model
 
 ### Other Non-Profits
@@ -374,5 +375,5 @@ The blade enforces. The contract binds. The model sustains.
 
 *"Build in the open, sustain through value creation, return to the commons."*
 
-**⚔️📜💼🌱✨**
+**⚔️📜💼🌱**
 

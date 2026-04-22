@@ -2,18 +2,38 @@
 
 ## Swordsman Browser Agent × IEEE 7012-2025
 
-**Document Type:** Supporting Material for MyTerms Alliance Application  
-**Author:** privacymage / agentprivacy  
-**Date:** February 1, 2026  
-**Standard Reference:** IEEE Std 7012™-2025
+**Document Type:** Supporting Material for MyTerms Alliance Application
+**Author:** privacymage / agentprivacy
+**Date:** February 1, 2026 (refreshed April 22, 2026 against IEEE 7012 Integration Plan V2)
+**Standard Reference:** IEEE Std 7012™-2025 (Approved 4 November 2025; Published 20 January 2026)
 
 ---
 
 ## Overview
 
-This document specifies how agentprivacy's Swordsman browser agent implements IEEE 7012-2025, the Standard for Machine Readable Personal Privacy Terms. The implementation treats MyTerms as foundational infrastructure—not a feature, but the agreement layer upon which all other privacy functions depend.
+This document specifies how agentprivacy's Swordsman browser agent implements IEEE 7012-2025, the Standard for Machine Readable Personal Privacy Terms. The standard is treated as **the agreement layer** — the bilateral protocol on which enforcement is built, not the enforcement itself. IEEE 7012 is a thin waist (§1.1): it specifies person-to-entity agreement routines and intentionally leaves delegation, Σ separation, cryptographic substrate, and trust accumulation to the implementer.
 
-The Swordsman sits within a tetrahedral architecture (Swordsman, Mage, Reflect, Connect) where the protocol layer between agents becomes a communication substrate. This substrate enables guild-based secret languages — communities developing their own vocabulary on top of shared protocol — while IEEE 7012 provides the agreement layer that gives the Swordsman's blade meaning beyond single sessions.
+The Swordsman sits within a tetrahedral architecture (Swordsman, Mage, Reflect, Connect) where the protocol between agents is a communication substrate. That substrate enables guild-based secret languages — communities developing their own vocabulary on top of a shared waist (IEEE 7012 + W3C DPV + ODRL) — while IEEE 7012 supplies the agreement primitive that gives the Swordsman's blade meaning beyond single sessions.
+
+### What IEEE 7012 is *not*
+
+To prevent the common misread that the standard does more than it does:
+
+- **Not an enforcement specification.** A signed `SD-BASE` can still be violated in practice without ZK or TEE backing. Enforcement is the implementer's job.
+- **Not an agent-separation specification.** A single-agent monolith can be IEEE 7012-compliant and score Σ ≈ 0 on the Privacy Value Model. Σ lives in architecture, not in the agreement.
+- **Not a multi-turn negotiation protocol.** §A.1 and Figure A.1 cap negotiation at one round (accept / one counter-offer / decline). Richer negotiation is out of scope.
+- **Not an inference-control specification.** Inference over released data (Γ) is out of scope entirely.
+- **Not a universal ontology.** Annex D expects reconciliation with existing domain vocabularies (HL7 is the worked example) via ISO 23903 — community vocabularies live *above* the standard.
+
+### PVM V5.4 axis mapping
+
+| Axis | IEEE 7012 contribution | What IEEE 7012 does not provide |
+|---|---|---|
+| Σ (agent) | Role boundary between person-agent and entity-agent; makes separation testable via the agreement artifact | The information-theoretic bound `I(S;M\|FP) < ε*` |
+| Δ (data) | Coarse-grained policy lattice via `SD-BASE-*` and `PDC-*` | Cryptographic enforcement — ZK/TEE backing lives below |
+| Γ (inference) | `SD-BASE-ATP` addresses second-party profiling as an agreement variable | Inference over published data — out of scope |
+
+IEEE 7012 is a **necessary but not sufficient** condition for the Σ axis being measurable at all. Compliance with the standard is a precondition; the Swordsman + Mage + ZK substrate together close the loop.
 
 ---
 
@@ -55,9 +75,13 @@ The Swordsman sits within a tetrahedral architecture (Swordsman, Mage, Reflect, 
        │                                            │
        │ ◀──── "SD-BASE: ACCEPTED" ────────────────│
        │         OR                                 │
-       │ ◀──── "COUNTER-OFFER: SD-BASE-A" ─────────│
+       │ ◀──── "COUNTER-OFFER: SD-BASE-A" ─────────│  (§A.1: ONE round only)
        │         OR                                 │
        │ ◀──── "DECLINED" ─────────────────────────│
+       │                                            │
+       │  Negotiation is capped at one round.       │
+       │  The First Person accepts the counter,     │
+       │  or the conversation ends.                 │
        │                                            │
        │        [If acceptable to First Person]     │
        │                                            │
@@ -496,13 +520,17 @@ All implementations will be validated against:
 
 ## Conclusion
 
-This technical integration plan demonstrates that agentprivacy's Swordsman agent is designed around IEEE 7012 as foundational infrastructure. MyTerms isn't a feature we're adding—it's the agreement layer that makes everything else possible.
+This technical integration plan demonstrates that agentprivacy's Swordsman agent is designed around IEEE 7012 as the **agreement layer**. The standard specifies what is agreed between the First Person and the Entity; the Swordsman, Mage, and ZK substrate together specify what is *enforced*. IEEE 7012 compliance is a precondition for the PVM Σ axis being measurable, not a substitute for the architecture that makes Σ ≈ 1 achievable.
 
-The blade enforces what the contract establishes.
+The blade enforces what the contract establishes — and only what the contract establishes.
+
+### Defensible headline claim
+
+> IEEE 7012-2025 provides the agreement layer agentprivacy's dual-agent architecture requires. Compliance with the standard is a precondition for the Σ (agent) axis being measurable, and enables bilateral chronicles that can serve as evidentiary basis for VRCs. Standard compliance alone is not equivalent to the full agentprivacy architecture; the standard specifies agreement, not enforcement.
 
 ---
 
 *Technical specifications subject to evolution based on implementation experience and standard clarifications.*
 
-**⚔️📜🔧✨**
+**⚔️📜✍️🔐**
 

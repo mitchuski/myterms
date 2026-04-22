@@ -2,17 +2,26 @@
 
 ## Live Development, Guest Collaboration & Community Energy
 
-**Document Type:** Supporting Material for MyTerms Alliance Application  
-**Author:** privacymage / agentprivacy  
-**Date:** February 1, 2026
+**Document Type:** Supporting Material for MyTerms Alliance Application
+**Author:** privacymage / agentprivacy
+**Date:** February 1, 2026 (refreshed April 22, 2026 against IEEE 7012 Integration Plan V2)
 
 ---
 
 ## Overview
 
-Standards don't spread through specifications alone. They spread through demonstration, community, and momentum. This document outlines agentprivacy's strategy for diffusing IEEE 7012 / MyTerms into practical adoption through live development streams, guest collaborations, and sustained community energy.
+Standards don't spread through specifications alone. They spread through demonstration, community, and momentum. This document outlines agentprivacy's strategy for diffusing IEEE 7012 / MyTerms into practical adoption through live development streams, guest collaborations, named conference venues, and the Privacy is Value V5 blog series.
 
-The methodology proves itself through multiplication — same principles across written documentation, narrative spellbooks, audio narration, podcast, visual architecture guides, and interactive AI agents. Compression ratios of 70:1 to 125:1 make complex concepts memorable. If it only worked one way, it would be fragile. It works every way we've tried.
+The methodology proves itself through multiplication — same principles across written documentation, narrative spellbooks, audio narration, podcast, visual architecture guides, and interactive AI agents. If it only worked one way, it would be fragile. It works every way we've tried.
+
+### Named venues ahead
+
+- **AIW #3.** Talk focus: the Σ-axis mapping of IEEE 7012 and the "agreement, not enforcement" clarification. Targets the agent-architecture audience and separates the standard from the implementation choices that actually determine privacy outcomes.
+- **IIW #43.** Working session on the vouchable-credential / VRC crosswalk. Co-conveners ideally include at least one IEEE 7012 working group member (Doc Searls, Justin Byrd, Mary Hodder, or Scott Mace) and at least one First Person Project / Choudhuri-Garg contributor. Session output: a shared crosswalk document.
+
+### Convergence framing
+
+IEEE 7012, the First Person Project, the BGIN IKMP WG, and agentprivacy each arrived at bilateral recording, small-roster agreement selection, and accumulated trust as primitives — by different paths. Diffusion emphasises convergence, not priority. "We identified this first" is not the story; the noosphere-convergence across independent lines is.
 
 ---
 
@@ -117,8 +126,8 @@ Each live session generates:
 
 **Month 1: Foundation Streams**
 - Week 1: "What is MyTerms?" - Introduction with Customer Commons guest
-- Week 2: "Swordsman Meets SD-BASE" - First integration demo
-- Week 3: "Cookie Slashing with Contracts" - Enforcement in action
+- Week 2: "Swordsman Meets SD-BASE" - First integration demo, framed as the agreement layer (not the enforcement layer)
+- Week 3: "Cookie Slashing with Contracts" - Enforcement in action; explicit on what the standard does *not* cover
 - Week 4: "Guest Challenge: [Site X]" - First external implementation
 
 **Month 2: Expansion Streams**
@@ -130,8 +139,16 @@ Each live session generates:
 **Month 3: Deep Dives**
 - Week 9: "Intentcasting (PDC-INTENT)" - Going to market under your terms
 - Week 10: "AI Training Terms (PDC-AI)" - Data contribution agreements
-- Week 11: "Privacy Pools + MyTerms" - Financial privacy integration
+- Week 11: "Privacy Pools + MyTerms" - Financial privacy integration; ZK substrate as the Δ enforcement below the agreement
 - Week 12: "Quarterly Retrospective" - What worked, what's next
+
+### Privacy is Value V5 blog series integration
+
+IEEE 7012 references land across the remaining three blog posts rather than in a dedicated post:
+
+- **Part 3 ("The Dragon Wakes")** — passing reference only. The Dragon/Theia material is inter-universe impact; IEEE 7012 is mundane agreement infrastructure. Forcing it in would dilute both.
+- **Part 4 ("The Dihedral Mirror")** — natural home for IEEE 7012 in the blog arc. Mirror symmetry maps to bilateral recording (§5.2.4). The dihedral group structure frames the two-party constraint (§5.4.3). Substantive public treatment of the standard lives here.
+- **Part 5 ("The Amnesia Protocol")** — a single poem on the commons as neutral ground. Customer Commons as the place agreements live when neither party owns them.
 
 ---
 
@@ -328,5 +345,5 @@ The standard exists. Now we make it live.
 
 *"Watch the implementation. Join the conversation. Build the future."*
 
-**🎬⚔️📜🤝✨**
+**🎬⚔️📜🤝**
 

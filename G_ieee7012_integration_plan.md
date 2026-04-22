@@ -1,9 +1,23 @@
 # IEEE 7012-2025 Integration Plan
 ## Digesting the Standard & Updating 0xagentprivacy Documentation
 
-**Date:** February 1, 2026  
-**Document Status:** IEEE Std 7012™-2025 Published January 20, 2026  
+**Date:** February 1, 2026
+**Document Status:** **SUPERSEDED** by `ieee7012_integration_plan_v2.md` (April 22, 2026)
+**Standard Status:** IEEE Std 7012™-2025 approved 4 November 2025, published 20 January 2026
 **Prepared for:** privacymage / 0xagentprivacy
+
+---
+
+> **⚠️ Superseded.** This document is retained for history. The current integration plan is [`ieee7012_integration_plan_v2.md`](./ieee7012_integration_plan_v2.md), which reflects the advances that have landed since v1:
+>
+> - PVM moved from V3.1 to V5.4 — scalar golden-duality multiplier replaced by three-axis multiplicative gating `Φ_v5 = Φ_agent(Σ) · Φ_data(Δ) · Φ_inference(Γ)`.
+> - First Person Spellbook closed at Act XXXI ("The First Delegation"). **Do not** add "Act 4.5" or "Act XIII"; IEEE 7012 narrative belongs in the Second Person Spellbook ("The Two Parties") or the Zero Knowledge Spellbook ("The Terms That Remember").
+> - Grimoire JSON v10.1.0 is the canonical source of truth. IEEE 7012 references live in `standards.ieee_7012_2025`, not in each spellbook.
+> - IEEE 7012 is reframed from "foundational infrastructure" to the **agreement layer only** — mapping primarily to Σ, with coarse Δ policy, and Γ out of scope.
+> - The four-glyph inscription `⚔️📜✍️🔐` (blade, scroll, signature, lock) replaces the five-glyph sequence; `✨` was decorative.
+> - Documents consolidated: `IEEE_7012_TECHNICAL_BRIDGE.md` + `MYTERMS_AGREEMENT_REFERENCE.md` merge into a single `IEEE_7012_BRIDGE.md`.
+>
+> Treat the material below as archival context, not active guidance. Where v1 and v2 conflict, v2 wins.
 
 ---
 
