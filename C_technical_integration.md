@@ -7,6 +7,8 @@
 **Date:** February 1, 2026 (refreshed April 22, 2026 against IEEE 7012 Integration Plan V2)
 **Standard Reference:** IEEE Std 7012™-2025 (Approved 4 November 2025; Published 20 January 2026)
 
+> **V6 note (2026-06-10).** Read R(d) as R(t) per PVM V6 §5 (the moving ceiling; every static reconstruction guarantee has a shelf life t*). One addition relevant to the Γ axis: the Existence-Leak law (C81, ~70%): a public feasibility attestation is itself a disclosure event, I(feasibility; method) > 0, with the planning corollary C84 (every attestation discounts the migration horizon). The compounding-leakage results (policy separation compounds toward (2^N − 1)ε; amnesia caps at Nε, C83) strengthen this package's core claim that the agreement layer is not the enforcement layer.
+
 ---
 
 ## Overview

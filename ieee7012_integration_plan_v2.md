@@ -8,6 +8,8 @@
 **Working group:** Doc Searls (Chair), Justin Byrd (Vice Chair), Mary Hodder (Editor), Scott Mace (Secretary)
 **Neutral host:** Customer Commons
 
+> **V6 note (2026-06-10).** The Privacy is Value model is now at **V6**: `agentprivacy-docs/privacy_value_v6.md` (unified V6 labeling across all canon papers). Two V6 changes touch this package: the reconstruction quantity is now time-dependent, R(t) = (C_S(t) + C_M(t))/H(X) with shelf life t*, replacing static R(d) language wherever reconstruction is discussed; and conjecture citations (C1, C4, C6 and all others) resolve to `agentprivacy-docs/research/CONJECTURE_REGISTER_V6.md` (head C89). Integration plan v3 (V6 edition) is queued; v2 below remains the operative text meanwhile. Date hedge: cite the IEEE 7012-2025 publication as "January 2026" (the precise day is project-asserted, not independently confirmed in the standards record).
+
 ---
 
 ## Executive Summary
