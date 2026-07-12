@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyTerms · the agentprivacy expressions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14151C; --ink-2:#1B1D27; --ink-3:#22242F;
+    --vellum:#E8E1CF; --vellum-ink:#2A2520; --vellum-dim:#6C6455;
+    --steel:#86A9C9; --mage:#B191E0; --silver:#8C8C97;
+    --paper:#DCD9E2; --dim:#767684;
+    --hair:rgba(140,140,151,0.22); --hair-strong:rgba(140,140,151,0.4);
+    --code-bg:rgba(134,169,201,0.10);
+    --serif:'EB Garamond', Georgia, serif;
+    --mono:'JetBrains Mono', ui-monospace, monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html,body{height:100%}
+  body{background:var(--ink); color:var(--paper); font-family:var(--serif); overflow:hidden; -webkit-font-smoothing:antialiased}
+  body::before{content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:radial-gradient(120% 80% at 50% -10%, rgba(134,169,201,0.05), transparent 60%),
+               radial-gradient(120% 80% at 50% 110%, rgba(177,145,224,0.05), transparent 60%);}
+  .stage{position:fixed; inset:0; z-index:1}
+
+  .slide{position:absolute; inset:0; display:flex; flex-direction:column;
+    padding:clamp(1.9rem,4.4vw,4.6rem) clamp(1.8rem,6.5vw,7rem) clamp(4rem,6.5vh,5.2rem);
+    opacity:0; visibility:hidden; transform:translateY(14px);
+    transition:opacity .5s ease, transform .5s ease, visibility .5s;}
+  .slide.active{opacity:1; visibility:visible; transform:none}
+  .slide.active .rise{animation:rise .65s cubic-bezier(.2,.7,.2,1) both}
+  .slide.active .rise:nth-child(2){animation-delay:.05s}
+  .slide.active .rise:nth-child(3){animation-delay:.1s}
+  .slide.active .rise:nth-child(4){animation-delay:.15s}
+  .slide.active .rise:nth-child(5){animation-delay:.2s}
+  @keyframes rise{from{opacity:0; transform:translateY(16px)} to{opacity:1; transform:none}}
+
+  .head{display:flex; align-items:baseline; gap:1rem; margin-bottom:clamp(.9rem,2.4vh,1.7rem); flex-wrap:wrap}
+  .head .no{font-family:var(--mono); color:var(--dim); font-size:clamp(.66rem,.85vw,.78rem); letter-spacing:.14em}
+  .head .perp{font-family:var(--mono); color:var(--hair-strong)}
+  .head .kick{font-family:var(--mono); font-size:clamp(.6rem,.78vw,.72rem); letter-spacing:.22em; text-transform:uppercase; color:var(--silver)}
+
+  .body-wrap{flex:1; display:flex; flex-direction:column; justify-content:center; min-height:0}
+  h2{font-weight:500; line-height:1.06; letter-spacing:-.01em}
+  .title{font-family:var(--serif); font-size:clamp(1.7rem,3.5vw,3.1rem); color:var(--paper); max-width:24ch}
+  .title.sm{font-size:clamp(1.5rem,2.9vw,2.5rem)}
+  .lede{font-family:var(--serif); font-size:clamp(1rem,1.5vw,1.28rem); line-height:1.45; color:var(--paper); max-width:60ch; margin-top:.7rem}
+  .claim{font-family:var(--mono); font-size:clamp(.74rem,.95vw,.88rem); line-height:1.6; color:var(--silver); max-width:64ch}
+  .claim b{color:var(--steel); font-weight:500} .claim .m{color:var(--mage)}
+  em{font-style:italic}
+  .foothint{font-family:var(--serif); font-style:italic; font-size:clamp(.92rem,1.25vw,1.06rem); color:var(--silver); margin-top:.9rem}
+  .foothint .lbl{font-family:var(--mono); font-style:normal; font-size:.58rem; letter-spacing:.18em; text-transform:uppercase; color:var(--mage); margin-right:.5rem}
+
+  .cols{display:grid; grid-template-columns:1fr 1fr; gap:clamp(1.4rem,3.5vw,3.2rem); align-items:start}
+  @media (max-width:860px){ .cols{grid-template-columns:1fr; gap:1.2rem} }
+
+  code, .code{font-family:var(--mono); font-size:.82em; background:var(--code-bg); color:var(--steel);
+    border:1px solid var(--hair); border-radius:3px; padding:.08em .38em; white-space:nowrap}
+  .code.m{color:var(--mage); background:rgba(177,145,224,0.10)}
+
+  .scroll{background:var(--vellum); color:var(--vellum-ink); font-family:var(--serif); font-style:italic;
+    font-size:clamp(.98rem,1.4vw,1.24rem); line-height:1.4;
+    padding:clamp(1rem,1.9vw,1.4rem) clamp(1.2rem,2.3vw,1.7rem); position:relative;
+    box-shadow:0 18px 44px -24px rgba(0,0,0,.7); border-left:3px solid var(--steel)}
+  .scroll.mage{border-left-color:var(--mage)}
+  .scroll::before{content:"“"; position:absolute; top:-.15em; left:.32em; font-size:2.2em; color:var(--vellum-dim); opacity:.5}
+  .scroll .src{display:block; margin-top:.55rem; font-style:normal; font-family:var(--mono); font-size:.56rem; letter-spacing:.14em; text-transform:uppercase; color:var(--vellum-dim)}
+
+  /* spec list: identifier -> gloss */
+  .spec{display:flex; flex-direction:column; gap:.55rem}
+  .specrow{display:grid; grid-template-columns:auto 1fr; gap:.9rem; align-items:baseline;
+    padding-bottom:.5rem; border-bottom:1px solid var(--hair)}
+  .specrow:last-child{border-bottom:none}
+  .specrow .id{font-family:var(--mono); font-size:.78rem; color:var(--steel); white-space:nowrap}
+  .specrow .id.m{color:var(--mage)}
+  .specrow .gl{font-family:var(--serif); font-size:1.02rem; line-height:1.32; color:var(--paper)}
+  .specrow .gl small{display:block; font-family:var(--mono); font-size:.6rem; letter-spacing:.06em; color:var(--dim); margin-top:.15rem}
+
+  /* map grid */
+  .gridmap{display:grid; grid-template-columns:repeat(3,1fr); gap:.8rem; margin-top:.3rem}
+  @media (max-width:860px){ .gridmap{grid-template-columns:1fr 1fr} }
+  .mapcard{background:var(--ink-2); border:1px solid var(--hair); padding:.85rem .95rem}
+  .mapcard .mi{font-family:var(--mono); font-size:.62rem; letter-spacing:.12em; color:var(--steel)}
+  .mapcard h4{font-family:var(--serif); font-weight:600; font-size:1.08rem; color:var(--paper); margin:.3rem 0 .2rem}
+  .mapcard p{font-family:var(--serif); font-size:.9rem; line-height:1.3; color:var(--silver)}
+  .mapcard.b .mi{color:var(--mage)}
+
+  /* architecture / party split */
+  .arch{display:grid; grid-template-columns:1fr auto 1fr; align-items:stretch; margin-top:.3rem}
+  @media (max-width:860px){ .arch{grid-template-columns:1fr} .seam{display:none} }
+  .agent{padding:clamp(1rem,2vw,1.5rem); background:var(--ink-2); border:1px solid var(--hair)}
+  .agent.sw{border-top:3px solid var(--steel)} .agent.mg{border-top:3px solid var(--mage)}
+  .agent .glyph{font-size:1.6rem; line-height:1}
+  .agent h3{font-family:var(--serif); font-weight:600; font-size:1.25rem; margin:.4rem 0 .1rem}
+  .agent .axis{font-family:var(--mono); font-size:.64rem; letter-spacing:.14em; text-transform:uppercase}
+  .agent.sw .axis{color:var(--steel)} .agent.mg .axis{color:var(--mage)}
+  .agent .role{font-family:var(--serif); font-style:italic; font-size:1.08rem; color:var(--paper); margin-top:.55rem}
+  .agent .file{font-family:var(--mono); font-size:.6rem; color:var(--dim); margin-top:.5rem}
+  .seam{display:flex; align-items:center; justify-content:center; width:clamp(2.2rem,4.5vw,4rem)}
+  .seam span{font-family:var(--mono); font-size:clamp(1.3rem,2vw,1.8rem); color:var(--hair-strong)}
+
+  /* axes mapping */
+  .axmap{display:flex; flex-direction:column; gap:.6rem; margin-top:.3rem}
+  .axrow{display:grid; grid-template-columns:4.5rem 1fr; gap:1rem; align-items:start; background:var(--ink-2); border:1px solid var(--hair); padding:.75rem 1rem}
+  .axrow .sym{font-family:var(--mono); font-size:1.5rem; font-weight:500}
+  .axrow.a .sym{color:var(--steel)} .axrow.b .sym{color:var(--paper)} .axrow.c .sym{color:var(--mage)}
+  .axrow .sym small{display:block; font-size:.56rem; letter-spacing:.14em; text-transform:uppercase; color:var(--silver); margin-top:.1rem}
+  .axrow .mx{font-family:var(--serif); font-size:1.02rem; line-height:1.34; color:var(--paper)}
+  .axrow .mx b{color:var(--steel); font-weight:500}
+  .axrow .cav{font-family:var(--mono); font-size:.62rem; letter-spacing:.03em; color:var(--dim); margin-top:.28rem; display:block}
+  .gate{font-family:var(--mono); font-size:clamp(.78rem,1vw,.94rem); color:var(--paper); text-align:center; margin-bottom:.7rem; letter-spacing:.02em}
+  .gate .p{color:var(--steel)} .gate .m{color:var(--mage)}
+
+  /* glyph legend strip */
+  .legend{display:grid; grid-template-columns:repeat(4,1fr); gap:.7rem; margin-top:1rem}
+  @media (max-width:860px){ .legend{grid-template-columns:1fr 1fr} }
+  .lg{display:flex; align-items:baseline; gap:.5rem; font-family:var(--serif); font-size:.92rem; color:var(--silver)}
+  .lg b{font-size:1.1rem}
+  .lg span{color:var(--paper)}
+
+  /* ladder */
+  .ladder{display:flex; align-items:center; gap:.28rem; margin-top:.5rem; flex-wrap:wrap}
+  .rung{font-family:var(--mono); font-size:.7rem; padding:.5rem .55rem; background:var(--ink-2); border:1px solid var(--hair); color:var(--paper); white-space:nowrap}
+  .rung.first{border-color:var(--hair-strong); color:var(--steel); font-weight:600}
+  .arrow{color:var(--dim); font-family:var(--mono)}
+  .laddercap{font-family:var(--mono); font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; color:var(--silver); margin-top:.4rem}
+  .pdc{display:flex; gap:.55rem; margin-top:1rem; flex-wrap:wrap}
+  .pdc span{font-family:var(--mono); font-size:.68rem; padding:.4rem .6rem; border:1px solid var(--mage); color:var(--mage)}
+
+  /* ceremony flow */
+  .flow{display:flex; align-items:center; gap:.6rem; margin:.6rem 0 .3rem; flex-wrap:wrap}
+  .fstep{background:var(--ink-2); border:1px solid var(--hair); padding:.6rem .8rem; font-family:var(--serif); font-size:.98rem; color:var(--paper)}
+  .fstep .fk{display:block; font-family:var(--mono); font-size:.56rem; letter-spacing:.14em; text-transform:uppercase; color:var(--silver); margin-bottom:.15rem}
+  .fstep.hash{border-color:var(--hair-strong)}
+  .fstep.hash .fk{color:var(--steel)}
+  .farrow{color:var(--dim); font-family:var(--mono); font-size:1.1rem}
+
+  /* status */
+  .status{display:flex; flex-direction:column; gap:.28rem; margin-top:.2rem}
+  .srow{display:grid; grid-template-columns:1fr auto 1.5rem; gap:1rem; align-items:center; padding:.5rem .85rem; background:var(--ink-2); border:1px solid var(--hair)}
+  .srow .sk{font-family:var(--serif); font-size:.98rem; color:var(--paper)}
+  .srow .sv{font-family:var(--mono); font-size:.68rem; color:var(--silver); text-align:right}
+  .srow .si{font-family:var(--mono); font-size:.9rem; text-align:center}
+  .si.ok{color:var(--steel)} .si.todo{color:var(--mage)}
+
+  /* pillars */
+  .ask{display:grid; grid-template-columns:repeat(2,1fr); gap:.7rem; margin-top:.2rem}
+  @media (max-width:860px){ .ask{grid-template-columns:1fr} }
+  .pillar{background:var(--ink-2); border:1px solid var(--hair); border-left:3px solid var(--steel); padding:.75rem 1rem}
+  .pillar:nth-child(2n){border-left-color:var(--mage)}
+  .pillar .k{font-family:var(--mono); font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:var(--silver)}
+  .pillar .v{font-family:var(--serif); font-size:1.02rem; color:var(--paper); margin-top:.25rem; line-height:1.35}
+  .close-proverb{font-family:var(--serif); font-style:italic; font-size:clamp(1.1rem,1.7vw,1.42rem); color:var(--paper); margin-top:.9rem; max-width:64ch; line-height:1.32}
+  .urg{margin-top:1rem; font-family:var(--mono); font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--silver)}
+
+  /* footer + ticks */
+  .foot{position:fixed; left:0; right:0; bottom:0; z-index:3; display:flex; align-items:center; justify-content:space-between;
+    padding:.7rem clamp(1.8rem,6.5vw,7rem); font-family:var(--mono); font-size:.64rem; letter-spacing:.13em; color:var(--dim); text-transform:uppercase;
+    border-top:1px solid var(--hair); background:linear-gradient(to top, var(--ink), rgba(20,21,28,.7) 70%, transparent); backdrop-filter:blur(2px)}
+  .foot .glyphs{font-size:.95rem; letter-spacing:.3em}
+  .foot .mid{color:var(--silver); text-transform:none; font-family:var(--serif); font-style:italic; font-size:.86rem; letter-spacing:0}
+  .nav{display:flex; gap:.4rem; align-items:center}
+  .nav #counter{margin-right:.5rem}
+  .nav button{background:transparent; border:1px solid var(--hair-strong); color:var(--silver); font-family:var(--mono); font-size:.8rem; width:1.9rem; height:1.6rem; border-radius:2px; cursor:pointer; transition:all .18s ease}
+  .nav button:hover{border-color:var(--steel); color:var(--paper)}
+  .nav button:focus-visible{outline:2px solid var(--steel); outline-offset:2px}
+  .ticks{position:fixed; top:0; left:0; right:0; z-index:3; display:flex; gap:2px; padding:0 clamp(1.8rem,6.5vw,7rem); height:3px}
+  .ticks i{flex:1; background:var(--hair); transition:background .3s ease}
+  .ticks i.on{background:linear-gradient(90deg,var(--steel),var(--mage))}
+
+  /* title */
+  #s0{justify-content:center}
+  .inscription{font-size:clamp(1.4rem,2.8vw,2.1rem); letter-spacing:.24em; margin-bottom:1.3rem}
+  .bigtitle{font-family:var(--serif); font-weight:600; font-size:clamp(3rem,9vw,7.2rem); line-height:.92; letter-spacing:-.02em; color:var(--paper)}
+  .subttl{font-family:var(--serif); font-style:italic; font-size:clamp(1.15rem,2.2vw,1.8rem); color:var(--steel); margin-top:.8rem; max-width:44ch; line-height:1.3}
+  .subttl2{font-family:var(--mono); font-size:clamp(.7rem,.95vw,.84rem); color:var(--silver); margin-top:.9rem; letter-spacing:.06em}
+  .begin{margin-top:1.9rem; font-family:var(--mono); font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; color:var(--dim)}
+  .begin span{color:var(--steel)}
+  .credit{font-family:var(--mono); font-size:clamp(.6rem,.8vw,.72rem); letter-spacing:.08em; color:var(--dim); margin-top:1rem}
+  .credit b{color:var(--silver); font-weight:500}
+
+  /* thin waist */
+  .waist{display:flex; flex-direction:column; gap:.5rem; margin-top:.3rem}
+  .band{padding:.85rem 1.1rem; font-family:var(--serif); font-size:clamp(.98rem,1.3vw,1.14rem); line-height:1.32; position:relative}
+  .band .bk{display:block; font-family:var(--mono); font-size:.58rem; letter-spacing:.14em; text-transform:uppercase; margin-bottom:.22rem}
+  .band.above,.band.below{background:var(--ink-2); border:1px solid var(--hair); color:var(--silver)}
+  .band.above .bk,.band.below .bk{color:var(--dim)}
+  .band.core{background:var(--vellum); color:var(--vellum-ink); border-left:3px solid var(--steel); box-shadow:0 14px 34px -22px rgba(0,0,0,.7)}
+  .band.core .bk{color:var(--vellum-dim)} .band.core em{font-style:italic}
+
+  @media (prefers-reduced-motion:reduce){ .slide,.slide.active .rise{transition:opacity .2s ease; animation:none!important; transform:none!important} }
+</style>
+</head>
+<body>
+<div class="ticks" id="ticks"></div>
+<div class="stage" id="stage">
+
+  <!-- 0 · TITLE -->
+  <section class="slide" id="s0">
+    <div class="inscription rise">⚔️ 📜 ✍️ 🔐</div>
+    <h1 class="bigtitle rise">MyTerms</h1>
+    <p class="subttl rise">the standard specifies agreement, not enforcement.</p>
+    <p class="subttl2 rise">IEEE Std 7012™&#8209;2025 · the agreement layer · the expressions agentprivacy has built against it</p>
+    <p class="credit rise">Working Group — <b>Doc Searls</b>, Chair · hosted by <b>Customer Commons</b> · the individual proposes the terms</p>
+    <p class="begin rise">press <span>→</span> to walk the expressions</p>
+  </section>
+
+  <!-- 1 · MAP -->
+  <section class="slide" id="s1">
+    <div class="head rise"><span class="no">MAP</span><span class="perp">⊥</span><span class="kick">Where 7012 shows up in the work</span></div>
+    <div class="body-wrap">
+      <h2 class="title sm rise" style="margin-bottom:.9rem">Nine places the standard becomes concrete.</h2>
+      <div class="gridmap rise">
+        <div class="mapcard"><div class="mi">01 · PROTOCOL</div><h4>Invitation Protocol</h4><p>the First Person proposes; one round only.</p></div>
+        <div class="mapcard"><div class="mi">02 · RECORD</div><h4>Bilateral chronicle</h4><p>two signatures, two kept copies.</p></div>
+        <div class="mapcard"><div class="mi">03 · FORMAT</div><h4>Three registers</h4><p>JSON&#8209;LD over W3C DPV.</p></div>
+        <div class="mapcard b"><div class="mi">04 · AGENTS</div><h4>Swordsman ⊥ Mage</h4><p>only one of them signs.</p></div>
+        <div class="mapcard b"><div class="mi">05 · MODEL</div><h4>Three axes mapped</h4><p>Σ · Δ · Γ, honestly bounded.</p></div>
+        <div class="mapcard"><div class="mi">06 · ROSTER</div><h4>SD&#8209;BASE / PDC</h4><p>consumed from Customer Commons.</p></div>
+        <div class="mapcard"><div class="mi">07 · RUNS</div><h4>Three artefacts</h4><p>API · extensions · broker.</p></div>
+        <div class="mapcard b"><div class="mi">08 · WITNESS</div><h4>VRC + Gödel</h4><p>trust vouched from outside.</p></div>
+        <div class="mapcard b"><div class="mi">09 · RECOVERY</div><h4>RPP</h4><p>a proverb binds a credential.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1b · THE THIN WAIST -->
+  <section class="slide" id="sframe">
+    <div class="head rise"><span class="no">FRAME</span><span class="perp">⊥</span><span class="kick">What 7012 is — and what it is not</span></div>
+    <div class="body-wrap">
+      <h2 class="title sm rise" style="margin-bottom:.9rem">A thin waist. It does one thing, at the agreement layer.</h2>
+      <div class="waist rise">
+        <div class="band above"><span class="bk">above the waist — the implementer's</span>delegation · verifiable relationship credentials · trust graphs</div>
+        <div class="band core"><span class="bk">the waist — IEEE 7012</span>the routine by which a person and an entity <em>agree</em> — and nothing else</div>
+        <div class="band below"><span class="bk">below the waist — the implementer's</span>enforcement · cryptographic substrate · the chronicle</div>
+      </div>
+      <p class="foothint rise"><span class="lbl">so</span>everything that follows sits above or below this waist. the standard specifies agreement, not enforcement.</p>
+    </div>
+  </section>
+
+  <!-- 2 · INVITATION PROTOCOL -->
+  <section class="slide" id="s2">
+    <div class="head rise"><span class="no">EXPRESSION 01</span><span class="perp">⊥</span><span class="kick">The Invitation Protocol</span></div>
+    <div class="body-wrap">
+      <div class="cols">
+        <div>
+          <h2 class="title rise">The First Person is the Proposer.</h2>
+          <p class="claim rise">acceptance before proposal. the entity may accept, counter once, or decline. negotiation is capped at a single round.</p>
+        </div>
+        <div class="rise">
+          <div class="spec">
+            <div class="specrow"><span class="id">§5.2.1.3</span><span class="gl">First Person plays the Proposer role<small>the individual opens, not the platform</small></span></div>
+            <div class="specrow"><span class="id">§A.1</span><span class="gl">single&#8209;round negotiation<small>accept · counter&#8209;offer once · decline</small></span></div>
+            <div class="specrow"><span class="id">11-the-invitation-protocol.md</span><span class="gl">the canonical spec in the tomes<small>the swordsman's first blade</small></span></div>
+            <div class="specrow"><span class="id">/hall</span><span class="gl">seeded promise <span class="code m">Own MyTerms</span><small>the civic home where terms get counter&#8209;signed</small></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · BILATERAL CHRONICLE -->
+  <section class="slide" id="s3">
+    <div class="head rise"><span class="no">EXPRESSION 02</span><span class="perp">⊥</span><span class="kick">The bilateral chronicle</span></div>
+    <div class="body-wrap">
+      <div class="cols">
+        <div>
+          <h2 class="title rise">Two parties. Two signatures. Two kept copies.</h2>
+          <p class="claim rise">a chronicle <b>neither can later deny</b>. agents, devices and trust communities are the fabric around it, not parties to it.</p>
+          <p class="foothint rise"><span class="lbl">honest</span>an early draft wrongly wrote four parties. corrected to strictly two.</p>
+        </div>
+        <div class="rise">
+          <div class="scroll">the First Person on one side, the Entity on the other. neither can be absent, neither can be merged. the ⊥ between them is the standard itself.<span class="src">§5.2.4 · hall-bilateral-witness</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · THREE REGISTERS -->
+  <section class="slide" id="s4">
+    <div class="head rise"><span class="no">EXPRESSION 03</span><span class="perp">⊥</span><span class="kick">Three registers, as code</span></div>
+    <div class="body-wrap">
+      <h2 class="title sm rise" style="margin-bottom:.8rem">One agreement, three synchronised formats.</h2>
+      <div class="spec rise" style="max-width:none">
+        <div class="specrow"><span class="id">p7012:hasHumanReadableFormat</span><span class="gl">plain language, what the person actually understands</span></div>
+        <div class="specrow"><span class="id">p7012:hasLegalReadableFormat</span><span class="gl">the Customer Commons canonical legal text</span></div>
+        <div class="specrow"><span class="id m">JSON&#8209;LD / W3C DPV</span><span class="gl">the machine&#8209;readable body, so agents and devices can parse and act on it</span></div>
+      </div>
+      <p class="foothint rise"><span class="lbl">where</span>encoded in <span class="code">C_technical_integration.md</span> alongside the JSON&#8209;LD body.</p>
+    </div>
+  </section>
+
+  <!-- 5 · DUAL AGENT -->
+  <section class="slide" id="s5">
+    <div class="head rise"><span class="no">EXPRESSION 04</span><span class="perp">⊥</span><span class="kick">Swordsman ⊥ Mage · the role split, in code</span></div>
+    <div class="body-wrap">
+      <div class="arch rise">
+        <div class="agent sw"><div class="glyph">⚔️</div><h3>The Swordsman</h3><div class="axis">Σ · signs</div><div class="role">the only agent with a signing path.</div><div class="file">background/index.ts · ECDH</div></div>
+        <div class="seam"><span>⊥</span></div>
+        <div class="agent mg"><div class="glyph">🧙</div><h3>The Mage</h3><div class="axis">Γ · never signs</div><div class="role">read&#8209;only until it discovers the Swordsman, then acts inside scope.</div><div class="file">myswordsman / mymage</div></div>
+      </div>
+      <div class="legend rise">
+        <div class="lg"><b>⚔️</b><span>blade&nbsp;·&nbsp;boundary</span></div>
+        <div class="lg"><b>📜</b><span>scroll&nbsp;·&nbsp;the contract</span></div>
+        <div class="lg"><b>✍️</b><span>signature&nbsp;·&nbsp;consent</span></div>
+        <div class="lg"><b>🔐</b><span>lock&nbsp;·&nbsp;registry trust</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · THREE AXES -->
+  <section class="slide" id="s6">
+    <div class="head rise"><span class="no">EXPRESSION 05</span><span class="perp">⊥</span><span class="kick">The three axes, mapped honestly to 7012</span></div>
+    <div class="body-wrap">
+      <p class="gate rise"><span class="p">Φ_agent(Σ)</span> · Φ_data(Δ) · <span class="m">Φ_inference(Γ)</span> &nbsp;&nbsp;any axis at zero collapses the whole.</p>
+      <div class="axmap rise">
+        <div class="axrow a"><div class="sym">Σ<small>agent</small></div><div><div class="mx">7012 defines the person&#8209;agent / entity <b>role boundary</b>, making separation testable.</div><span class="cav">necessary, not sufficient · a compliant monolith can still score Σ ≈ 0</span></div></div>
+        <div class="axrow b"><div class="sym">Δ<small>data</small></div><div><div class="mx">SD&#8209;BASE / PDC agreement IDs give a coarse data&#8209;policy lattice.</div><span class="cav">cryptographic enforcement (ZK / TEE) lives below the standard</span></div></div>
+        <div class="axrow c"><div class="sym">Γ<small>inference</small></div><div><div class="mx">the standard is mostly silent here.</div><span class="cav">inference over published data is out of scope</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · ROSTER -->
+  <section class="slide" id="s7">
+    <div class="head rise"><span class="no">EXPRESSION 06</span><span class="perp">⊥</span><span class="kick">The roster · consumed, not minted</span></div>
+    <div class="body-wrap">
+      <h2 class="title sm rise" style="max-width:30ch">Standard terms come from Customer Commons.</h2>
+      <p class="lede rise" style="margin-bottom:.3rem">like Creative Commons, for privacy. we consume the IDs, never invent our own.</p>
+      <div class="ladder rise">
+        <span class="rung first">SD&#8209;BASE</span><span class="arrow">→</span>
+        <span class="rung">&#8209;DP</span><span class="arrow">→</span>
+        <span class="rung">&#8209;A</span><span class="arrow">→</span>
+        <span class="rung">&#8209;AT</span><span class="arrow">→</span>
+        <span class="rung">&#8209;ATP</span><span class="arrow">→</span>
+        <span class="rung">&#8209;ATP&#8209;S3P</span>
+      </div>
+      <p class="laddercap rise">most protective → most permissive</p>
+      <div class="pdc rise"><span>PDC&#8209;INTENT</span><span>PDC&#8209;AI</span><span>PDC&#8209;GOOD</span></div>
+      <p class="foothint rise"><span class="lbl">honest gap</span>our own stance / spell UX tokens are not yet grounded in real Customer Commons IDs.</p>
+    </div>
+  </section>
+
+  <!-- 8 · ARTEFACT · API -->
+  <section class="slide" id="s8">
+    <div class="head rise"><span class="no">EXPRESSION 07 · A</span><span class="perp">⊥</span><span class="kick">Artefact one · the negotiate API</span></div>
+    <div class="body-wrap">
+      <div class="cols">
+        <div>
+          <h2 class="title rise">A live two&#8209;party term exchange.</h2>
+          <p class="claim rise">an <b>experiment</b> built to try a conference&#8209;style MyTerms pattern, around <b>BGIN Block 14</b>. a real endpoint, not a diagram — a shape to run in the room.</p>
+        </div>
+        <div class="rise">
+          <div class="spec">
+            <div class="specrow"><span class="id">api/myterms/negotiate/route.ts</span><span class="gl">the term&#8209;exchange endpoint</span></div>
+            <div class="specrow"><span class="id">lib/ceremony/constellation.ts</span><span class="gl">forges the agreement from both sides</span></div>
+            <div class="specrow"><span class="id">13_MYTERMS_AGREEMENT_LAYER.md</span><span class="gl">the agreement&#8209;layer design spec</span></div>
+          </div>
+          <p class="foothint" style="margin-top:.8rem"><span class="lbl">status</span>conference experiment · code exists.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · ARTEFACT · EXTENSIONS -->
+  <section class="slide" id="s9">
+    <div class="head rise"><span class="no">EXPRESSION 07 · B</span><span class="perp">⊥</span><span class="kick">Artefact two · the dual extensions</span></div>
+    <div class="body-wrap">
+      <h2 class="title sm rise" style="margin-bottom:.2rem">Two orbs over any page. Converge them, forge an agreement.</h2>
+      <div class="flow rise">
+        <div class="fstep"><span class="fk">your terms ⚔</span>Swordsman orb</div>
+        <span class="farrow">+</span>
+        <div class="fstep"><span class="fk">site's ✦</span>Mage orb</div>
+        <span class="farrow">→</span>
+        <div class="fstep"><span class="fk">converge</span>agreement forged</div>
+        <span class="farrow">→</span>
+        <div class="fstep hash"><span class="fk">hashed</span><span class="code">constellationHash</span></div>
+      </div>
+      <div class="spec rise" style="margin-top:.6rem">
+        <div class="specrow"><span class="id">blade-forge.ts</span><span class="gl">hexagram → blade</span></div>
+        <div class="specrow"><span class="id m">spell-definitions.ts</span><span class="gl">each sticker → a <span class="code m">myTermsMapping</span> + a proverb</span></div>
+        <div class="specrow"><span class="id">ECDH key exchange</span><span class="gl">scaffolded between the pair · <span class="code m">signSpell()</span> still a placeholder</span></div>
+      </div>
+      <p class="foothint rise"><span class="lbl">status</span>built · cryptographic sealing in progress, not shipped.</p>
+    </div>
+  </section>
+
+  <!-- 10 · ARTEFACT · BROKER -->
+  <section class="slide" id="s10">
+    <div class="head rise"><span class="no">EXPRESSION 07 · C</span><span class="perp">⊥</span><span class="kick">Artefact three · the capability broker</span></div>
+    <div class="body-wrap">
+      <div class="cols">
+        <div>
+          <h2 class="title rise">Delegation inside an agreed scope.</h2>
+          <p class="claim rise"><span class="code">WIKI_GRANT</span> gives an agent host&#8209;scoped write access, <b>never the full authority the credential carries</b>, and never the secret itself.</p>
+          <p class="foothint rise"><span class="lbl">status</span>working today at env&#8209;var scope.</p>
+        </div>
+        <div class="rise">
+          <div class="scroll">the IEEE 7012 version: the site owner publishes machine&#8209;readable terms, the agent presents an agreement, and the broker honours a push only against a valid signed agreement, deriving the allowed scope from that agreement.<span class="src">broker.js · a miniature of the MyTerms pattern</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · WITNESS -->
+  <section class="slide" id="s11">
+    <div class="head rise"><span class="no">EXPRESSION 08</span><span class="perp">⊥</span><span class="kick">The witness · why it is built incomplete</span></div>
+    <div class="body-wrap">
+      <div class="cols">
+        <div>
+          <h2 class="title rise">A self&#8209;certifying agreement is a contradiction.</h2>
+          <p class="claim rise">Gödel's lesson, put to work. so the trust community is not a party but a <b>witness</b>: a VRC signs nothing, it measures fidelity from outside, and vouches.</p>
+        </div>
+        <div class="rise">
+          <div class="scroll mage">a trust that certifies itself is the one you cannot trust.<span class="src">the lintel</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 · RPP -->
+  <section class="slide" id="s12">
+    <div class="head rise"><span class="no">EXPRESSION 09</span><span class="perp">⊥</span><span class="kick">The Relationship Proverb Protocol</span></div>
+    <div class="body-wrap">
+      <h2 class="title sm rise" style="margin-bottom:.3rem">A proverb, spoken, unlocks a credential.</h2>
+      <p class="lede rise" style="margin-bottom:.5rem">the three&#8209;register logic turned on trust itself: recovery is gated by speaking a human&#8209;readable proverb that binds a relationship.</p>
+      <div class="flow rise">
+        <div class="fstep"><span class="fk">human</span>a proverb that binds a relationship</div>
+        <span class="farrow">→</span>
+        <div class="fstep hash"><span class="fk">machine</span>a recovery credential</div>
+        <span class="farrow">→</span>
+        <div class="fstep"><span class="fk">on&#8209;chain</span><span class="code m">Zcash inscription</span></div>
+      </div>
+      <p class="foothint rise"><span class="lbl">note</span>proof of understanding replaces the stored secret · demonstrated decompression is the proof.</p>
+    </div>
+  </section>
+
+  <!-- 13 · THE ASK -->
+  <section class="slide" id="s13">
+    <div class="head rise"><span class="no">THE ASK</span><span class="perp">⊥</span><span class="kick">Founding membership · MyTerms Alliance</span></div>
+    <div class="body-wrap">
+      <h2 class="title sm rise" style="margin-bottom:.7rem">Four things a standard needs to reach adoption.</h2>
+      <div class="ask rise">
+        <div class="pillar"><span class="k">Implementation</span><div class="v">production Swordsman + Mage; a conference&#8209;pattern negotiate API.</div></div>
+        <div class="pillar"><span class="k">Diffusion</span><div class="v">weekly streams · AIW / IIW.</div></div>
+        <div class="pillar"><span class="k">Narrative</span><div class="v">a canon that makes the standard legible.</div></div>
+        <div class="pillar"><span class="k">Sustainability</span><div class="v">Foundation ↔ Labs ↔ Community.</div></div>
+      </div>
+      <p class="urg rise">before surveillance architectures lock in · the standard specifies agreement, not enforcement.</p>
+      <p class="close-proverb rise">the blade slashes. the contract binds. the standard names what the contract is. all three serve the First Person.</p>
+    </div>
+  </section>
+
+  <!-- 14 · APPENDIX -->
+  <section class="slide" id="s14">
+    <div class="head rise"><span class="no">APPENDIX</span><span class="perp">⊥</span><span class="kick">Status &amp; honesty</span></div>
+    <div class="body-wrap">
+      <h2 class="title sm rise" style="margin-bottom:.7rem">Where the expressions actually stand.</h2>
+      <div class="status rise">
+        <div class="srow"><span class="sk">Integration plan v2 (PVM V5.4)</span><span class="sv">current operative text</span><span class="si ok">✓</span></div>
+        <div class="srow"><span class="sk">Negotiate API (BGIN Block 14 experiment)</span><span class="sv">conference pattern · code exists</span><span class="si ok">✓</span></div>
+        <div class="srow"><span class="sk">Capability broker</span><span class="sv">working; env&#8209;var scope, signed&#8209;scope next</span><span class="si ok">✓</span></div>
+        <div class="srow"><span class="sk">Extension convergence UI</span><span class="sv">built; signSpell() is a placeholder</span><span class="si todo">→</span></div>
+        <div class="srow"><span class="sk">SD&#8209;BASE / PDC grounding of UX tokens</span><span class="sv">not yet mapped</span><span class="si todo">→</span></div>
+        <div class="srow"><span class="sk">Grimoire standards.ieee_7012_2025 block</span><span class="sv">planned, not in the JSON</span><span class="si todo">→</span></div>
+        <div class="srow"><span class="sk">Staged wiki pages</span><span class="sv">staged, not published</span><span class="si todo">→</span></div>
+        <div class="srow"><span class="sk">V6 edition of the plan</span><span class="sv">queued, not drafted</span><span class="si todo">→</span></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="foot">
+  <span class="glyphs">⚔️ 📜 ✍️ 🔐</span>
+  <span class="mid" id="slabel">the agentprivacy expressions</span>
+  <span class="nav"><span id="counter">01 / 16</span><button id="prev" aria-label="Previous slide">‹</button><button id="next" aria-label="Next slide">›</button></span>
+</div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var labels = ["the agentprivacy expressions","the map","the thin waist","invitation protocol","bilateral chronicle","three registers","Swordsman ⊥ Mage","the three axes","the roster","artefact · negotiate API","artefact · dual extensions","artefact · capability broker","the witness","proverb protocol","the ask","status & honesty"];
+  var i = 0;
+  var ticksWrap = document.getElementById('ticks');
+  slides.forEach(function(){ var t=document.createElement('i'); ticksWrap.appendChild(t); });
+  var ticks = Array.prototype.slice.call(ticksWrap.children);
+  var counter = document.getElementById('counter');
+  var slabel = document.getElementById('slabel');
+  function pad(n){ return (n<10?'0':'')+n; }
+  function show(n){
+    i = Math.max(0, Math.min(slides.length-1, n));
+    slides.forEach(function(s,idx){ s.classList.toggle('active', idx===i); });
+    ticks.forEach(function(t,idx){ t.classList.toggle('on', idx<=i); });
+    counter.textContent = pad(i+1)+' / '+pad(slides.length);
+    slabel.textContent = labels[i] || '';
+  }
+  function next(){ show(i+1); } function prev(){ show(i-1); }
+  document.getElementById('next').addEventListener('click', next);
+  document.getElementById('prev').addEventListener('click', prev);
+  document.addEventListener('keydown', function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'||e.key==='j'){ e.preventDefault(); next(); }
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'||e.key==='k'){ e.preventDefault(); prev(); }
+    else if(e.key==='Home'){ e.preventDefault(); show(0); }
+    else if(e.key==='End'){ e.preventDefault(); show(slides.length-1); }
+  });
+  var x0=null;
+  document.addEventListener('touchstart', function(e){ x0=e.touches[0].clientX; }, {passive:true});
+  document.addEventListener('touchend', function(e){ if(x0===null) return; var dx=e.changedTouches[0].clientX-x0; if(Math.abs(dx)>50){ dx<0?next():prev(); } x0=null; }, {passive:true});
+  show(0);
+})();
+</script>
+</body>
+</html>
